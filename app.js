@@ -19,6 +19,10 @@ app.use(bodyParser.json());
 app.use(function (req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
 	res.header(
+		'Access-Control-Allow-Methods',
+		'GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS'
+	);
+	res.header(
 		'Access-Control-Allow-Headers',
 		'Origin, X-Requested-With, Content-Type, Accept'
 	);
@@ -70,7 +74,7 @@ app.patch('/lists/:id', (req, res) => {
 			$set: req.body,
 		}
 	).then(() => {
-		res.sendStatus(200);
+		res.send({ message: 'Updated Successfully' });
 	});
 });
 
@@ -123,7 +127,7 @@ app.patch('/lists/:listId/tasks/:taskId', (req, res) => {
 		{ _id: req.params.taskId, _listId: req.params.listId },
 		{ $set: req.body }
 	).then(() => {
-		res.sendStatus(200);
+		res.send({ message: 'Updated Successfully' });
 	});
 });
 
